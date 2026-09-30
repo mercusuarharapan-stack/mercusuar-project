@@ -30,3 +30,6 @@ export const updateReceipt = (id, d) => api.put(`/receipts/${id}`, d).then((r) =
 export const deleteReceipt = (id) => api.delete(`/receipts/${id}`).then((r) => r.data);
 
 export const getStats = () => api.get("/dashboard/stats").then((r) => r.data);
+
+export const getSettings = () => api.get("/settings").then((r) => r.data);
+export const updateSettings = (d) => api.put("/settings", d).then((r) => r.data);

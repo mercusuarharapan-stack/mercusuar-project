@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPrograms, createProgram, updateProgram, deleteProgram } from "../lib/api";
+import { getPrograms, createProgram, updateProgram, deleteProgram, getSettings, updateSettings } from "../lib/api";
 import { rupiah, FOUNDATION } from "../lib/format";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -8,7 +8,7 @@ import { Label } from "../components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "../components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../components/ui/alert-dialog";
 import { LighthouseLogo } from "../components/Brand";
-import { Plus, Pencil, Trash2, GraduationCap } from "lucide-react";
+import { Plus, Pencil, Trash2, GraduationCap, Upload } from "lucide-react";
 import { toast } from "sonner";
 
 const empty = { name: "", label: "", biaya_pengembangan: 0, spp_bulanan: 0, periode_bulan: 12, biaya_pendaftaran: 0, badge_color: "emerald" };
@@ -18,9 +18,32 @@ export default function MasterData() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState(empty);
   const [editId, setEditId] = useState(null);
+  const [logo, setLogo] = useState("");
 
   const load = () => getPrograms().then(setPrograms);
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); getSettings().then((s) => setLogo(s.logo || "")).catch(() => {}); }, []);
+
+  const onLogoFile = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { toast.error("File harus berupa gambar (PNG/JPG)"); return; }
+    if (file.size > 1.5 * 1024 * 1024) { toast.error("Ukuran logo maksimal 1.5 MB"); return; }
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const dataUrl = reader.result;
+      setLogo(dataUrl);
+      try { await updateSettings({ logo: dataUrl }); toast.success("Logo yayasan diperbarui — akan tampil di semua dokumen cetak"); }
+      catch { toast.error("Gagal menyimpan logo"); }
+    };
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  const removeLogo = async () => {
+    setLogo("");
+    await updateSettings({ logo: "" });
+    toast.success("Logo dihapus, kembali ke placeholder");
+  };
 
   const openNew = () => { setForm(empty); setEditId(null); setOpen(true); };
   const openEdit = (p) => { setForm(p); setEditId(p.id); setOpen(true); };
@@ -45,11 +68,23 @@ export default function MasterData() {
         <Button className="bg-blue-900 hover:bg-blue-950" onClick={openNew} data-testid="add-program-button"><Plus className="w-4 h-4 mr-1" /> Tambah Program</Button>
       </div>
 
-      <Card className="p-4 border-slate-200/80 bg-blue-50/50 flex items-center gap-3">
-        <LighthouseLogo className="w-10 h-10" />
-        <div className="text-sm">
-          <p className="font-heading font-bold text-blue-900">{FOUNDATION.name}</p>
-          <p className="text-slate-500 text-xs">{FOUNDATION.address}</p>
+      <Card className="p-5 border-slate-200/80" data-testid="logo-settings-card">
+        <div className="flex items-center gap-4 flex-wrap">
+          <div className="w-20 h-20 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0">
+            {logo ? <img src={logo} alt="Logo yayasan" className="w-full h-full object-contain" data-testid="logo-preview" /> : <LighthouseLogo className="w-12 h-12" />}
+          </div>
+          <div className="flex-1 min-w-[220px]">
+            <p className="font-heading font-bold text-blue-900">{FOUNDATION.name}</p>
+            <p className="text-slate-500 text-xs mb-2">{FOUNDATION.address}</p>
+            <div className="flex items-center gap-2">
+              <label className="inline-flex items-center gap-1.5 bg-blue-900 hover:bg-blue-950 text-white text-sm font-semibold px-3.5 py-2 rounded-lg cursor-pointer transition-colors">
+                <Upload className="w-4 h-4" /> {logo ? "Ganti Logo" : "Unggah Logo"}
+                <input type="file" accept="image/*" className="hidden" onChange={onLogoFile} data-testid="logo-upload-input" />
+              </label>
+              {logo && <Button variant="outline" size="sm" onClick={removeLogo} data-testid="logo-remove-btn">Hapus</Button>}
+            </div>
+            <p className="text-[11px] text-slate-400 mt-1.5">Logo tampil di semua dokumen cetak (invoice, jadwal, kuitansi). Format PNG/JPG, maks 1.5 MB.</p>
+          </div>
         </div>
       </Card>
 

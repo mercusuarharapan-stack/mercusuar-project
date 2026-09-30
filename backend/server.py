@@ -538,6 +538,23 @@ async def delete_receipt(rid: str):
     return {"ok": True}
 
 
+# ---------------- Settings (branding) ----------------
+class SettingsInput(BaseModel):
+    logo: str = ""
+
+
+@api_router.get("/settings")
+async def get_settings():
+    doc = await db.settings.find_one({"id": "app"}, {"_id": 0})
+    return doc or {"id": "app", "logo": ""}
+
+
+@api_router.put("/settings")
+async def update_settings(data: SettingsInput):
+    await db.settings.update_one({"id": "app"}, {"$set": {"id": "app", "logo": data.logo}}, upsert=True)
+    return {"id": "app", "logo": data.logo}
+
+
 # ---------------- Dashboard ----------------
 @api_router.get("/dashboard/stats")
 async def dashboard_stats():
