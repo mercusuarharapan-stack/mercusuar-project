@@ -57,12 +57,14 @@ export const ScheduleEditor = ({ open, onOpenChange, invoices, invoice, schedule
 
   const sum = rows.reduce((s, r) => s + (Number(r.amount) || 0), 0);
   const sisa = total - sum;
+  const isMatched = Math.abs(sisa) < 0.5;
 
   const save = async () => {
     if (!invoiceId) { toast.error("Pilih invoice terlebih dahulu"); return; }
     if (rows.length === 0) { toast.error("Tidak ada termin"); return; }
-    if (Math.abs(sisa) > 0.5) {
-      toast.warning(`Total termin belum sesuai. Selisih ${rupiah(Math.abs(sisa))}`);
+    if (!isMatched) {
+      toast.error(`Total termin belum sesuai total invoice. Selisih ${rupiah(Math.abs(sisa))}`);
+      return;
     }
     setSaving(true);
     const installments = rows.map((r, i) => ({
@@ -158,12 +160,17 @@ export const ScheduleEditor = ({ open, onOpenChange, invoices, invoice, schedule
             <div className="flex justify-between"><span className="text-slate-500">Total Termin</span><span className="font-mono font-semibold" data-testid="schedule-sum-display">{rupiah(sum)}</span></div>
             <div className="flex justify-between font-bold border-t border-slate-200 pt-1">
               <span>Sisa</span>
-              <span className={`font-mono ${Math.abs(sisa) < 0.5 ? "text-emerald-700" : "text-rose-600"}`} data-testid="schedule-remaining-display">{rupiah(sisa)}</span>
+              <span className={`font-mono ${isMatched ? "text-emerald-700" : "text-rose-600"}`} data-testid="schedule-remaining-display">{rupiah(sisa)}</span>
             </div>
+            {!isMatched && (
+              <p className="text-xs text-rose-600 pt-1" data-testid="schedule-mismatch-warning">
+                Total semua termin harus sama dengan total invoice ({rupiah(total)}) sebelum jadwal dapat disimpan.
+              </p>
+            )}
           </div>
         </div>
         <DialogFooter>
-          <Button className="bg-blue-900 hover:bg-blue-950" onClick={save} disabled={saving} data-testid="schedule-save-submit">
+          <Button className="bg-blue-900 hover:bg-blue-950" onClick={save} disabled={saving || !isMatched} data-testid="schedule-save-submit">
             {saving ? "Menyimpan…" : editing ? "Simpan Perubahan" : "Buat Jadwal"}
           </Button>
         </DialogFooter>
