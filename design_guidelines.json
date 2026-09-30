@@ -1,0 +1,286 @@
+{
+  "project_name": "Sistem Manajemen Invoice & Pembayaran Yayasan Mercusuar Harapan Mulia",
+  "app_type": "dashboard",
+  "archetype": "ARCHETYPE 1: ORGANIC & EARTHY + SWISS UTILITY (Warm Academic Authority)",
+  "theme": "light",
+  "theme_toggle_support": true,
+  "institution_profile": {
+    "name": "Yayasan Mercusuar Harapan Mulia",
+    "short_name": "Mercusuar Edu",
+    "address": "Jl. Ciater Raya Blok A1 No.2, BSD, Kel. Ciater, Kec. Serpong, Tangerang Selatan 15310",
+    "phone": "+62 21 538 9012",
+    "email": "administrasi@mercusuarharapan.sch.id",
+    "website": "https://mercusuarharapan.sch.id",
+    "entity_type": "Lembaga Pendidikan & Pengembangan Karakter",
+    "programs": [
+      {
+        "id": "pijar",
+        "name": "PIJAR",
+        "label": "Program Inklusif & Juara Akademik Ramah Anak (PIJAR)",
+        "badge_color": "emerald",
+        "default_biaya_pengembangan": 4500000,
+        "default_spp_bulanan": 850000,
+        "default_periode_bulan": 12
+      },
+      {
+        "id": "purrfect",
+        "name": "PURRFECT LEARNING",
+        "label": "Purrfect Learning Early & Elementary Skills",
+        "badge_color": "amber",
+        "default_biaya_pengembangan": 3750000,
+        "default_spp_bulanan": 700000,
+        "default_periode_bulan": 12
+      },
+      {
+        "id": "daycare",
+        "name": "DAYCARE",
+        "label": "Mercusuar Daycare & Nurture Care Center",
+        "badge_color": "sky",
+        "default_biaya_pengembangan": 2500000,
+        "default_spp_bulanan": 1250000,
+        "default_periode_bulan": 12
+      }
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "heading": "'Cabinet Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif",
+      "body": "'Plus Jakarta Sans', 'IBM Plex Sans', -apple-system, sans-serif",
+      "mono": "'JetBrains Mono', 'Source Code Pro', monospace"
+    },
+    "scale": {
+      "h1": "text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight",
+      "h2": "text-2xl sm:text-3xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold tracking-tight",
+      "h4": "text-lg sm:text-xl font-semibold",
+      "body_lead": "text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed",
+      "body": "text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-normal",
+      "body_muted": "text-xs sm:text-sm text-slate-500 dark:text-slate-400",
+      "caption": "text-xs uppercase tracking-[0.18em] font-semibold text-slate-500 dark:text-slate-400",
+      "currency_large": "text-2xl sm:text-3xl font-black font-mono tracking-tight text-emerald-900 dark:text-emerald-100",
+      "currency_table": "font-mono font-medium tabular-nums text-right"
+    },
+    "currency_format_rule": "Format mata uang Rupiah Indonesia baku: 'Rp 1.250.000' (menggunakan titik pemisah ribuan, tanpa desimal jika bulat, rata kanan pada kolom tabel angka)"
+  },
+  "colors": {
+    "primary": {
+      "main": "#1e3a8a",
+      "hover": "#172554",
+      "light": "#eff6ff",
+      "description": "Deep Navy Blue khas Mercusuar (mercusuar/lighthouse night sky, trust, kredibilitas institusi)"
+    },
+    "secondary": {
+      "main": "#0f766e",
+      "hover": "#115e59",
+      "light": "#f0fdfa",
+      "description": "Deep Forest Teal / Sage (pertumbuhan anak & edukasi berkarakter)"
+    },
+    "accent_warmth": {
+      "main": "#d97706",
+      "hover": "#b45309",
+      "light": "#fffbeb",
+      "description": "Warm Amber Lighthouse Beam (kehangatan, lentera mercusuar)"
+    },
+    "semantic": {
+      "paid": {
+        "badge_bg": "bg-emerald-50 dark:bg-emerald-950/40",
+        "badge_text": "text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800",
+        "icon_color": "#059669"
+      },
+      "partial": {
+        "badge_bg": "bg-amber-50 dark:bg-amber-950/40",
+        "badge_text": "text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800",
+        "icon_color": "#d97706"
+      },
+      "unpaid": {
+        "badge_bg": "bg-rose-50 dark:bg-rose-950/40",
+        "badge_text": "text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800",
+        "icon_color": "#e11d48"
+      },
+      "draft": {
+        "badge_bg": "bg-slate-100 dark:bg-slate-800",
+        "badge_text": "text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700",
+        "icon_color": "#64748b"
+      }
+    },
+    "neutrals": {
+      "canvas": "bg-[#f8fafc] dark:bg-[#090d16]",
+      "card_surface": "bg-white dark:bg-[#111827]",
+      "subtle_surface": "bg-slate-50/75 dark:bg-slate-900/60",
+      "border_default": "border-slate-200/80 dark:border-slate-800",
+      "border_strong": "border-slate-300 dark:border-slate-700"
+    }
+  },
+  "layout_and_navigation": {
+    "header": {
+      "type": "Crystal Glass Sticky Top Bar with Foundation Identity",
+      "classes": "sticky top-0 z-50 backdrop-blur-xl bg-white/85 dark:bg-slate-900/85 border-b border-slate-200/80 dark:border-slate-800 px-4 sm:px-8 py-3.5",
+      "elements": [
+        "Lighthouse Crest Brand with Yayasan Name & BSD Address Pill",
+        "Quick Module Navigation Tabs: Ringkasan (Dashboard), Invoice & SPP, Jadwal Cicilan, Tanda Terima, Master Program",
+        "Quick Actions: '+ Buat Invoice Baru', '+ Catat Pembayaran'",
+        "Live System Status: 'Pencatatan Aktif - TA 2026/2027'"
+      ]
+    },
+    "grid_modes": {
+      "dashboard_mode_b": "High Density Metric Grid with 4 KPI summary cards (Total Invoice Diterbitkan, Total Terbayar, Sisa Piutang SPP & Uang Pangkal, Cicilan Jatuh Tempo Bulan Ini) + 2/3 and 1/3 Chart & Live Feed distribution",
+      "invoice_form_tetris": "2-column asymmetric layout: Left col-span-8 for Student & Line Items builder, Right col-span-4 for Live Summary Card with automatic subtotal, discount reduction, final total & installment preview",
+      "print_mode": "Dedicated clean white A4 ratio paper card (@media print styling with no-print action bar, crisp serif/sans headings, official seal badge, bank account payment instructions, and dual sign-off fields: Staf Keuangan & Orang Tua/Wali)"
+    }
+  },
+  "key_modules_architecture": {
+    "dashboard_overview": {
+      "title": "Ringkasan Keuangan Yayasan",
+      "features": [
+        "KPI Cards: Total Tagihan, Terkumpul, Piutang Berjalan, Rasio Pembayaran",
+        "Visual Chart: Tren Pembayaran per Program (PIJAR, PURRFECT, DAYCARE)",
+        "Jatuh Tempo Mendekat (Next 14 Days) reminder list dengan tombol 1-klik Catat Pembayaran",
+        "Transaksi Pembayaran Terbaru dengan nomor kuitansi resmi"
+      ]
+    },
+    "module_invoice_maker": {
+      "title": "Pembuatan & Manajemen Invoice",
+      "form_fields": {
+        "invoice_number": "Auto-format: INV/YMH/2026/MM/XXXX",
+        "student_info": "Nama Siswa, Nomor Induk Siswa (NIS), Kelas/Rombel, Nama Orang Tua/Wali, Kontak WhatsApp/Telepon, Email",
+        "program_selection": "Pilihan Program (PIJAR, PURRFECT LEARNING, DAYCARE) yang auto-populate line items standar",
+        "line_items_table": [
+          "Biaya Pengembangan / Uang Gedung",
+          "SPP Bulanan (dengan multi-select bulan berjalan atau custom range bulan)",
+          "Uang Kegiatan & Ekstrakurikuler",
+          "Biaya Seragam & Materi Ajar",
+          "Line item kustom bebas tambah baris"
+        ],
+        "discount_engine": "Mendukung opsi diskon Nominal (Rp) ATAU Persentase (%) per baris item dan diskon total faktur (misal: Diskon Saudara Kandung / Beasiswa Yayasan)",
+        "auto_calculations": "Subtotal, Total Diskon, Pajak/Admin (opsional), Total Akhir (Net Payable)",
+        "due_date_picker": "Tanggal Faktur & Tanggal Jatuh Tempo",
+        "payment_type": "Pilihan: Lunas Sekaligus ATAU Rencana Pembayaran Bertahap (Cicilan)"
+      }
+    },
+    "module_payment_schedules": {
+      "title": "Jadwal Pembayaran & Cicilan",
+      "features": [
+        "Generator Cicilan Otomatis: Bagi total tagihan menjadi 2x, 3x, 4x, 6x atau tenor kustom",
+        "Tabel Jadwal: Termin ke-N, Tanggal Jatuh Tempo, Jumlah Angsuran (Rp), Status (LUNAS, MENUNGGU, TERLEWAT)",
+        "Action: Catat Pembayaran langsung dari termin jatuh tempo tertentu",
+        "Cetak Lembar Jadwal Komitmen Pembayaran (PDF/Print) untuk ditandatangani orang tua"
+      ]
+    },
+    "module_payment_receipts": {
+      "title": "Tanda Terima Pembayaran (Kuitansi Resmi)",
+      "features": [
+        "Auto-generate nomor kuitansi resmi: KWT/YMH/2026/MM/XXXX saat staf mencatat penerimaan kas/transfer",
+        "Field Pencatatan: Tanggal Bayar, Metode (Transfer BCA/Mandiri, Kas Tunai, QRIS Yayasan), Bukti Referensi / No Rekening Pengirim, Catatan Penerima",
+        "Keterangan terbilang otomatis Bahasa Indonesia (Contoh: 'Tiga Juta Lima Ratus Ribu Rupiah')",
+        "Cetak Kuitansi Resmi standar A4/A5 landscape siap stempel yayasan"
+      ]
+    },
+    "module_master_data": {
+      "title": "Master Data Program & Tarif Pendidikan",
+      "features": [
+        "Kelola 3 Program Inti: PIJAR, PURRFECT LEARNING, DAYCARE",
+        "Pengaturan Komponen Biaya: Biaya Pengembangan, SPP Bulanan, Durasi Periode (Bulan), Biaya Pendaftaran",
+        "Daftar Rekening Bank Yayasan untuk instruksi transfer di Invoice/Kuitansi (BCA Yayasan, Mandiri, BSI)",
+        "CRUD interaktif dengan modal dialog Shadcn & validasi instan"
+      ]
+    },
+    "printable_documents": {
+      "standard_kop_surat": {
+        "yayasan_name": "YAYASAN MERCUSUAR HARAPAN MULIA",
+        "badge_sub": "LEMBAGA PENDIDIKAN & PENGEMBANGAN POTENSI ANAK",
+        "address": "Jl. Ciater Raya Blok A1 No.2, BSD, Kel. Ciater, Kec. Serpong, Kota Tangerang Selatan, Banten 15310",
+        "contact": "Telp: (021) 538-9012 | WhatsApp: +62 812-8899-7711 | Email: administrasi@mercusuarharapan.sch.id",
+        "decor": "Double border horizontal separator (1px slate-300 + 3px primary navy line) khas kop resmi institusi Indonesia"
+      },
+      "documents": [
+        "Faktur Tagihan Siswa (Invoice Resmi)",
+        "Lembar Komitmen Jadwal Cicilan (Payment Schedule Sheet)",
+        "Kuitansi Tanda Terima Pembayaran (Official Payment Receipt)"
+      ]
+    }
+  },
+  "curated_media_assets": {
+    "images": [
+      {
+        "category": "hero_and_institution",
+        "title": "Gedung dan Kampus Edukasi Modern",
+        "image_url": "https://images.unsplash.com/photo-1613896527026-f195d5c818ed?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzV8MHwxfHNlYXJjaHwxfHxzY2hvb2wlMjBidWlsZGluZyUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3OTA3Mzk2MTR8MA&ixlib=rb-4.1.0&q=85",
+        "usage_location": "Dashboard banner sambutan staf & card preview profil yayasan di master data"
+      },
+      {
+        "category": "programs_pijar",
+        "title": "Suasana Siswa Membaca & Kegiatan Belajar Ramah Anak",
+        "image_url": "https://images.unsplash.com/photo-1549431971-f54b3f5c82d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxpbmRvbmVzaWFuJTIwc3R1ZGVudHMlMjBsZWFybmluZ3xlbnwwfHx8fDE3OTA3Mzk1Mzh8MA&ixlib=rb-4.1.0&q=85",
+        "usage_location": "Thumbnail visual program PIJAR di Master Data & pemilihan program"
+      },
+      {
+        "category": "programs_purrfect_learning",
+        "title": "Interaksi Guru & Siswa Kelas Pembelajaran Kreatif",
+        "image_url": "https://images.unsplash.com/photo-1589104760192-ccab0ce0d90f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwzfHxpbmRvbmVzaWFuJTIwc3R1ZGVudHMlMjBsZWFybmluZ3xlbnwwfHx8fDE3OTA3Mzk1Mzh8MA&ixlib=rb-4.1.0&q=85",
+        "usage_location": "Thumbnail visual program Purrfect Learning di Master Data"
+      },
+      {
+        "category": "programs_daycare",
+        "title": "Ruang Kelas Ceria & Aman untuk Daycare",
+        "image_url": "https://images.unsplash.com/photo-1647342003191-70d033b24485?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwzfHxraWRzJTIwbGVhcm5pbmclMjBjbGFzc3Jvb218ZW58MHx8fHwxNzkwNzM5NjEwfDA&ixlib=rb-4.1.0&q=85",
+        "usage_location": "Thumbnail visual program Daycare & Nurture Care Center"
+      }
+    ],
+    "brand_logo_svg_spec": {
+      "concept": "Mercusuar (Lighthouse) yang memancarkan cahaya harapan di atas buku terbuka",
+      "primary_color": "#1e3a8a",
+      "beam_color": "#f59e0b",
+      "svg_code": "<svg className='w-9 h-9 text-blue-900' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M24 4L18 28H30L24 4Z' fill='#1E3A8A'/><path d='M16 28L14 36H34L32 28H16Z' fill='#2563EB'/><path d='M10 40C14 38 20 38 24 40C28 38 34 38 38 40V44C34 42 28 42 24 44C20 42 14 42 10 44V40Z' fill='#0F766E'/><circle cx='24' cy='14' r='3' fill='#F59E0B'/><path d='M24 14L8 10M24 14L40 10M24 14L8 18M24 14L40 18' stroke='#F59E0B' strokeWidth='1.5' strokeLinecap='round' strokeDasharray='2 2'/></svg>"
+    }
+  },
+  "interactive_components": {
+    "dialogs": "Gunakan Shadcn Dialog untuk form Catat Pembayaran, Modal Detail Invoice, Edit Master Program",
+    "table": "Gunakan tabular layout rapi dengan border-slate-200, hover:bg-slate-50/80, tabular-nums untuk angka Rupiah",
+    "tabs": "Gunakan Shadcn Tabs dengan custom active state pill (bg-blue-900 text-white shadow-sm)",
+    "toasts": "Gunakan sonner (toast.success / toast.error) untuk notifikasi CRUD, cetak PDF, dan pencatatan kas",
+    "print_actions": "Gunakan browser window.print() dengan kelas CSS `@media print` terisolasi sehingga print preview langsung presisi A4 tanpa navbar"
+  },
+  "testing_attributes_spec": {
+    "rule": "Semua tombol interaktif, link, input form, tab modul, dan status badge wajib menyertakan data-testid dengan format kebab-case deskriptif.",
+    "examples": [
+      "data-testid='nav-tab-dashboard'",
+      "data-testid='nav-tab-invoices'",
+      "data-testid='nav-tab-schedules'",
+      "data-testid='nav-tab-receipts'",
+      "data-testid='nav-tab-master-data'",
+      "data-testid='create-invoice-button'",
+      "data-testid='record-payment-button'",
+      "data-testid='invoice-student-name-input'",
+      "data-testid='invoice-program-select'",
+      "data-testid='invoice-add-item-btn'",
+      "data-testid='invoice-subtotal-display'",
+      "data-testid='invoice-total-discount-display'",
+      "data-testid='invoice-grand-total-display'",
+      "data-testid='invoice-save-submit-btn'",
+      "data-testid='print-invoice-pdf-btn'",
+      "data-testid='print-schedule-pdf-btn'",
+      "data-testid='print-receipt-pdf-btn'",
+      "data-testid='stat-total-invoices'",
+      "data-testid='stat-total-paid'",
+      "data-testid='stat-total-receivable'",
+      "data-testid='save-master-program-btn'"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "1. Sistem TIDAK MEMERLUKAN LOGIN: Semua staf yayasan langsung dapat mengakses semua modul (Dashboard, Invoice, Jadwal Cicilan, Tanda Terima, Master Data).",
+    "2. FORMAT MATA UANG INDONESIA: Tampilkan seluruh angka mata uang dalam format Rupiah baku Indonesia (cth: 'Rp 4.500.000'), auto format saat pengetikan.",
+    "3. PERHITUNGAN OTOMATIS: Komponen pembuatan invoice harus otomatis mengkalkulasi Subtotal baris, Diskon (nominal Rp atau persentase %), dan Total Akhir. Jika memilih program PIJAR, PURRFECT, atau DAYCARE, berikan tombol 'Muat Biaya Standar Program' yang auto-isi Biaya Pengembangan & SPP dari Master Data.",
+    "4. JADWAL CICILAN GENERATOR: Sediakan opsi saat pembuatan invoice: 'Bayar Penuh' atau 'Cicilan/Angsuran' (2x, 3x, 4x, 6x). Generator menghitung tanggal jatuh tempo berjarak 30 hari atau tanggal 10 tiap bulan secara otomatis dengan sisa pembulatan tepat.",
+    "5. TANDA TERIMA OTOMATIS: Setelah pembayaran dicatat (baik lunas maupun cicilan parsial), buatkan otomatis entitas Tanda Terima (Kuitansi) dengan teks terbilang Rupiah otomatis (fungsi spell-number terintegrasi) dan opsi Cetak.",
+    "6. DOKUMEN CETAK PROFESIONAL: Sediakan tombol 'Cetak PDF / Print' di Invoice, Jadwal Cicilan, dan Kuitansi. Tampilan cetak harus bersih, berformat kop resmi Yayasan Mercusuar Harapan Mulia lengkap dengan alamat BSD Tangerang Selatan, stempel cap digital yayasan, dan kolom tanda tangan ganda.",
+    "7. DATA AWAL (SEED DATA): Sertakan data mock realistis siswa Indonesia untuk ketiga program (PIJAR, PURRFECT LEARNING, DAYCARE) agar dashboard langsung tampak hidup dengan statistik, invoice terbit, cicilan aktif, dan kuitansi pembayaran.",
+    "8. RESPONSIVE & CLEAN: Dashboard harus bekerja prima pada resolusi desktop maupun tablet staf tata usaha, dengan navigasi cepat dan konfirmasi toast informatif."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Hindari template generic atau 'AI slop'. Terapkan identitas institusi pendidikan prestisius Indonesia dengan warna biru navy mercusuar, aksen emas lentera, dan sentuhan sage.",
+    "Jangan gunakan gradient berlebihan pada container data. Gunakan border 1px yang halus, background kartu putih bersih dengan bayangan lembut, dan tipografi berbobot tegas.",
+    "Pastikan tidak ada background transparan tanpa blur pada dropdown, dialog overlay, maupun navbar.",
+    "Semua interaksi form dan tombol aksi harus memiliki data-testid untuk kepatuhan testing otomatis.",
+    "Gunakan Sonner toast untuk feedback setiap aksi staf (Invoice Dibuat, Pembayaran Tercatat, Program Diperbarui)."
+  ]
+}

@@ -1,0 +1,22 @@
+/* Print styles for official documents */
+@media screen {
+  .print-only { display: none; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff !important; }
+  .print-page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    border: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  @page { size: A4; margin: 14mm; }
+}
+
+.print-page {
+  background: #fff;
+  color: #0f172a;
+}
