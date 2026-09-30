@@ -30,6 +30,7 @@ export default function SchedulePrint() {
           <thead>
             <tr className="bg-blue-900 text-white">
               <th className="text-left p-2.5 rounded-l-md">Termin</th>
+              <th className="text-left p-2.5">Jenis Pembayaran</th>
               <th className="text-left p-2.5">Tanggal Jatuh Tempo</th>
               <th className="text-right p-2.5">Jumlah Angsuran</th>
               <th className="text-center p-2.5 rounded-r-md">Status</th>
@@ -39,6 +40,7 @@ export default function SchedulePrint() {
             {s.installments.map((ins) => (
               <tr key={ins.termin} className="border-b border-slate-100">
                 <td className="p-2.5 font-semibold">Termin ke-{ins.termin}</td>
+                <td className="p-2.5">{ins.category || "-"}{ins.note ? <span className="text-xs text-slate-400 block">{ins.note}</span> : null}</td>
                 <td className="p-2.5">{formatDate(ins.due_date)}</td>
                 <td className="p-2.5 text-right font-mono font-semibold">{rupiah(ins.amount)}</td>
                 <td className="p-2.5 text-center">{(statusMeta[ins.status] || statusMeta.pending).label}</td>

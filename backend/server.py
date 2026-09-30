@@ -138,6 +138,8 @@ class Installment(BaseModel):
     termin: int
     due_date: str
     amount: float
+    category: str = "SPP Bulanan"
+    note: str = ""
     status: str = "pending"
     paid_amount: float = 0
 
@@ -189,6 +191,7 @@ class Receipt(BaseModel):
     method: str = "Transfer Bank"
     reference: str = ""
     note: str = ""
+    category: str = ""
     termin: Optional[int] = None
     created_at: str = Field(default_factory=now_iso)
 
@@ -385,6 +388,8 @@ def build_installments(total: float, tenor: int, start_date: str, day_of_month: 
             "termin": i + 1,
             "due_date": due.date().isoformat(),
             "amount": float(amt),
+            "category": "SPP Bulanan",
+            "note": "",
             "status": "pending",
             "paid_amount": 0,
         })
@@ -474,6 +479,8 @@ async def record_payment(data: PaymentInput):
     apply_invoice_status(inv)
     await db.invoices.update_one({"id": data.invoice_id}, {"$set": {"amount_paid": inv["amount_paid"], "status": inv["status"]}})
 
+    termin_category = ""
+    termin_note = ""
     if data.schedule_id and data.termin is not None:
         sched = await db.schedules.find_one({"id": data.schedule_id}, {"_id": 0})
         if sched:
@@ -481,6 +488,8 @@ async def record_payment(data: PaymentInput):
                 if ins["termin"] == data.termin:
                     ins["paid_amount"] = float(ins.get("paid_amount", 0)) + float(data.amount)
                     ins["status"] = "paid" if ins["paid_amount"] >= ins["amount"] - 0.5 else "partial"
+                    termin_category = ins.get("category", "")
+                    termin_note = ins.get("note", "")
             await db.schedules.update_one({"id": data.schedule_id}, {"$set": {"installments": sched["installments"]}})
 
     rec = Receipt(
@@ -492,7 +501,8 @@ async def record_payment(data: PaymentInput):
         payment_date=data.payment_date or now_iso()[:10],
         method=data.method,
         reference=data.reference,
-        note=data.note,
+        note=data.note or termin_note,
+        category=termin_category,
         termin=data.termin,
     )
     rec.receipt_number = await next_number("KWT", db.receipts, "receipt_number")

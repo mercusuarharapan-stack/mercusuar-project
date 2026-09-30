@@ -41,7 +41,10 @@ export default function Receipts() {
             {filtered.map((r) => (
               <TableRow key={r.id} className="hover:bg-slate-50/80" data-testid={`receipt-row-${r.id}`}>
                 <TableCell className="font-mono text-xs font-semibold text-blue-900">{r.receipt_number}</TableCell>
-                <TableCell className="font-semibold text-slate-800">{r.student_name}{r.termin ? <span className="text-xs text-slate-400"> • Termin {r.termin}</span> : ""}</TableCell>
+                <TableCell className="font-semibold text-slate-800">
+                  {r.student_name}{r.termin ? <span className="text-xs text-slate-400"> • Termin {r.termin}</span> : ""}
+                  {r.category ? <span className="text-xs text-slate-500 block font-normal">{r.category}{r.note ? ` — ${r.note}` : ""}</span> : null}
+                </TableCell>
                 <TableCell className="text-sm text-slate-600">{formatDate(r.payment_date)}</TableCell>
                 <TableCell className="text-sm text-slate-600">{r.method}</TableCell>
                 <TableCell className="text-right font-mono font-semibold text-emerald-700">{rupiah(r.amount)}</TableCell>

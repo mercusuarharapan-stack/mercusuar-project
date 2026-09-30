@@ -10,7 +10,8 @@ import { toast } from "sonner";
 
 export const PaymentDialog = ({ open, onOpenChange, invoice, schedule, termin, onDone }) => {
   const outstanding = invoice ? invoice.total - invoice.amount_paid : 0;
-  const preset = termin && schedule ? schedule.installments.find((i) => i.termin === termin)?.amount : outstanding;
+  const ins = termin && schedule ? schedule.installments.find((i) => i.termin === termin) : null;
+  const preset = ins ? ins.amount : outstanding;
   const [amount, setAmount] = useState(preset || 0);
   const [method, setMethod] = useState("Transfer BCA");
   const [reference, setReference] = useState("");
@@ -44,6 +45,7 @@ export const PaymentDialog = ({ open, onOpenChange, invoice, schedule, termin, o
             <p className="font-semibold">{invoice?.student?.name}</p>
             <p className="text-slate-500 font-mono text-xs">{invoice?.invoice_number}</p>
             <p className="text-slate-600 mt-1">Sisa tagihan: <span className="font-mono font-semibold">{rupiah(outstanding)}</span>{termin ? ` • Termin ${termin}` : ""}</p>
+            {ins && <p className="text-slate-600 text-xs mt-0.5">Jenis: <span className="font-semibold">{ins.category}{ins.note ? ` — ${ins.note}` : ""}</span></p>}
           </div>
           <div>
             <Label>Nominal (Rp)</Label>

@@ -23,8 +23,9 @@ export const FOUNDATION = {
   bank: "BCA a.n. Yayasan Mercusuar Harapan Mulia — No. Rek. 217-088-9911",
 };
 
-export const statusMeta = {
-  paid: { label: "LUNAS", cls: "bg-emerald-50 text-emerald-700 border border-emerald-200" },
+export const PAYMENT_CATEGORIES = ["Biaya Pengembangan", "SPP Bulanan", "Pembayaran Lain"];
+
+export const statusMeta = {  paid: { label: "LUNAS", cls: "bg-emerald-50 text-emerald-700 border border-emerald-200" },
   partial: { label: "SEBAGIAN", cls: "bg-amber-50 text-amber-700 border border-amber-200" },
   unpaid: { label: "BELUM BAYAR", cls: "bg-rose-50 text-rose-700 border border-rose-200" },
   pending: { label: "MENUNGGU", cls: "bg-slate-100 text-slate-600 border border-slate-300" },

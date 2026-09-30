@@ -32,7 +32,13 @@ export default function ReceiptPrint() {
           <div className="flex">
             <span className="w-48 text-slate-500">Untuk pembayaran</span>
             <span className="flex-1 text-slate-800 border-b border-dotted border-slate-300 pb-1">
-              Tagihan {r.invoice_number}{r.termin ? ` — Cicilan Termin ${r.termin}` : ""}{r.note ? ` (${r.note})` : ""}
+              Tagihan {r.invoice_number}{r.termin ? ` — Cicilan Termin ${r.termin}` : ""}
+            </span>
+          </div>
+          <div className="flex">
+            <span className="w-48 text-slate-500">Jenis pembayaran</span>
+            <span className="flex-1 font-semibold text-slate-800 border-b border-dotted border-slate-300 pb-1">
+              {r.category || "Pembayaran Invoice"}{r.note ? ` — ${r.note}` : ""}
             </span>
           </div>
           <div className="flex">

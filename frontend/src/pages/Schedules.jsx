@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getSchedules, getInvoices, deleteSchedule, createSchedule, getInvoice } from "../lib/api";
+import { getSchedules, getInvoices, deleteSchedule, getInvoice } from "../lib/api";
 import { rupiah, formatDate, statusMeta } from "../lib/format";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "../components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
-import { Label } from "../components/ui/label";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../components/ui/alert-dialog";
 import { PaymentDialog } from "../components/PaymentDialog";
-import { Printer, Trash2, Wallet, Plus, ChevronDown, ChevronRight } from "lucide-react";
+import { ScheduleEditor } from "../components/ScheduleEditor";
+import { Printer, Trash2, Wallet, Plus, Pencil, ChevronDown, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Schedules() {
@@ -19,20 +17,11 @@ export default function Schedules() {
   const [invoices, setInvoices] = useState([]);
   const [open, setOpenId] = useState(null);
   const [pay, setPay] = useState(null);
-  const [newInv, setNewInv] = useState("");
-  const [newTenor, setNewTenor] = useState(3);
-  const [addOpen, setAddOpen] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editSchedule, setEditSchedule] = useState(null);
 
   const load = () => { getSchedules().then(setSchedules); getInvoices().then(setInvoices); };
   useEffect(() => { load(); }, []);
-
-  const create = async () => {
-    if (!newInv) { toast.error("Pilih invoice"); return; }
-    const inv = invoices.find((i) => i.id === newInv);
-    await createSchedule({ invoice_id: newInv, tenor: Number(newTenor), start_date: inv?.invoice_date || "", day_of_month: 10 });
-    toast.success("Jadwal cicilan dibuat");
-    setAddOpen(false); setNewInv(""); load();
-  };
 
   const remove = async (id) => { await deleteSchedule(id); toast.success("Jadwal dihapus"); load(); };
 
@@ -41,38 +30,17 @@ export default function Schedules() {
     setPay({ invoice: inv, schedule: s, termin: ins.termin });
   };
 
+  const openCreate = () => { setEditSchedule(null); setEditorOpen(true); };
+  const openEdit = (s) => { setEditSchedule(s); setEditorOpen(true); };
+
   return (
     <div className="space-y-5" data-testid="schedules-page">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black font-heading text-slate-900">Jadwal Pembayaran & Cicilan</h1>
-          <p className="text-slate-500 text-sm mt-1">Kelola rencana angsuran dan catat pembayaran per termin.</p>
+          <p className="text-slate-500 text-sm mt-1">Atur nominal & jenis pembayaran tiap termin, lalu catat pembayaran.</p>
         </div>
-        <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-blue-900 hover:bg-blue-950" data-testid="create-schedule-button"><Plus className="w-4 h-4 mr-1" /> Buat Jadwal</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader><DialogTitle>Buat Jadwal Cicilan</DialogTitle></DialogHeader>
-            <div className="space-y-3">
-              <div>
-                <Label>Invoice</Label>
-                <Select value={newInv} onValueChange={setNewInv}>
-                  <SelectTrigger data-testid="schedule-invoice-select"><SelectValue placeholder="Pilih invoice…" /></SelectTrigger>
-                  <SelectContent>{invoices.map((i) => <SelectItem key={i.id} value={i.id}>{i.invoice_number} • {i.student?.name} • {rupiah(i.total)}</SelectItem>)}</SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>Jumlah Termin</Label>
-                <Select value={String(newTenor)} onValueChange={(v) => setNewTenor(Number(v))}>
-                  <SelectTrigger data-testid="schedule-tenor-select"><SelectValue /></SelectTrigger>
-                  <SelectContent>{[2, 3, 4, 6, 10, 12].map((t) => <SelectItem key={t} value={String(t)}>{t}x cicilan</SelectItem>)}</SelectContent>
-                </Select>
-              </div>
-            </div>
-            <DialogFooter><Button className="bg-blue-900 hover:bg-blue-950" onClick={create} data-testid="schedule-create-submit">Buat Jadwal</Button></DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <Button className="bg-blue-900 hover:bg-blue-950" onClick={openCreate} data-testid="create-schedule-button"><Plus className="w-4 h-4 mr-1" /> Buat Jadwal</Button>
       </div>
 
       <div className="space-y-3">
@@ -90,11 +58,12 @@ export default function Schedules() {
                     <p className="text-xs font-mono text-blue-900">{s.invoice_number}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <div className="text-right">
                     <p className="font-mono font-semibold text-slate-800">{rupiah(s.total)}</p>
                     <p className="text-xs text-slate-500">{paidCount}/{s.tenor} termin lunas</p>
                   </div>
+                  <Button size="icon" variant="ghost" onClick={(e) => { e.stopPropagation(); openEdit(s); }} data-testid={`edit-schedule-${s.id}`}><Pencil className="w-4 h-4" /></Button>
                   <Button size="icon" variant="ghost" onClick={(e) => { e.stopPropagation(); nav(`/schedules/${s.id}/print`); }} data-testid={`print-schedule-${s.id}`}><Printer className="w-4 h-4" /></Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild><Button size="icon" variant="ghost" onClick={(e) => e.stopPropagation()} data-testid={`delete-schedule-${s.id}`}><Trash2 className="w-4 h-4 text-rose-600" /></Button></AlertDialogTrigger>
@@ -109,7 +78,7 @@ export default function Schedules() {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-slate-50/80">
-                      <TableHead>Termin</TableHead><TableHead>Jatuh Tempo</TableHead>
+                      <TableHead>Termin</TableHead><TableHead>Jenis Pembayaran</TableHead><TableHead>Jatuh Tempo</TableHead>
                       <TableHead className="text-right">Jumlah</TableHead><TableHead className="text-right">Dibayar</TableHead>
                       <TableHead>Status</TableHead><TableHead className="text-right">Aksi</TableHead>
                     </TableRow>
@@ -120,6 +89,10 @@ export default function Schedules() {
                       return (
                         <TableRow key={ins.termin}>
                           <TableCell className="font-semibold">Termin {ins.termin}</TableCell>
+                          <TableCell className="text-sm">
+                            {ins.category || "-"}
+                            {ins.note ? <span className="text-xs text-slate-400 block">{ins.note}</span> : null}
+                          </TableCell>
                           <TableCell>{formatDate(ins.due_date)}</TableCell>
                           <TableCell className="text-right font-mono">{rupiah(ins.amount)}</TableCell>
                           <TableCell className="text-right font-mono text-emerald-700">{rupiah(ins.paid_amount)}</TableCell>
@@ -140,6 +113,9 @@ export default function Schedules() {
         })}
       </div>
 
+      {editorOpen && (
+        <ScheduleEditor open={editorOpen} onOpenChange={setEditorOpen} invoices={invoices} schedule={editSchedule} onDone={load} />
+      )}
       {pay && <PaymentDialog open={!!pay} onOpenChange={(o) => !o && setPay(null)} invoice={pay.invoice} schedule={pay.schedule} termin={pay.termin} onDone={() => { setPay(null); load(); }} />}
     </div>
   );
