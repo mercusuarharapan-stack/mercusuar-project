@@ -119,6 +119,7 @@ class InvoiceInput(BaseModel):
     global_discount_type: Literal["none", "nominal", "percent"] = "none"
     global_discount_value: float = 0
     payment_type: Literal["full", "installment"] = "full"
+    tenor: int = 3
     notes: str = ""
     status: str = "unpaid"
 
@@ -306,6 +307,26 @@ async def get_invoice(iid: str):
     return doc
 
 
+async def _sync_schedule(inv: dict, regenerate: bool = False):
+    if inv.get("payment_type") != "installment":
+        await db.schedules.delete_many({"invoice_id": inv["id"]})
+        return
+    existing = await db.schedules.count_documents({"invoice_id": inv["id"]})
+    if existing and not regenerate:
+        return
+    await db.schedules.delete_many({"invoice_id": inv["id"]})
+    installments = build_installments(inv["total"], inv.get("tenor", 3), inv.get("invoice_date", ""), 10)
+    sched = Schedule(
+        invoice_id=inv["id"],
+        invoice_number=inv.get("invoice_number", ""),
+        student_name=inv.get("student", {}).get("name", ""),
+        total=inv["total"],
+        tenor=inv.get("tenor", 3),
+        installments=[Installment(**i) for i in installments],
+    )
+    await db.schedules.insert_one(sched.model_dump())
+
+
 @api_router.post("/invoices", response_model=Invoice)
 async def create_invoice(data: InvoiceInput):
     inv = Invoice(**data.model_dump())
@@ -314,6 +335,7 @@ async def create_invoice(data: InvoiceInput):
     apply_invoice_status(d)
     d["invoice_number"] = await next_number("INV", db.invoices, "invoice_number")
     await db.invoices.insert_one(d)
+    await _sync_schedule(d, regenerate=True)
     d.pop("_id", None)
     return d
 
@@ -327,6 +349,7 @@ async def update_invoice(iid: str, data: InvoiceInput):
     compute_invoice(existing)
     apply_invoice_status(existing)
     await db.invoices.update_one({"id": iid}, {"$set": existing})
+    await _sync_schedule(existing, regenerate=False)
     return existing
 
 

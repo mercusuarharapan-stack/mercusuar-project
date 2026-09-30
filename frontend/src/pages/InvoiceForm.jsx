@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPrograms, getInvoice, createInvoice, updateInvoice, createSchedule } from "../lib/api";
+import { getPrograms, getInvoice, createInvoice, updateInvoice } from "../lib/api";
 import { rupiah, today } from "../lib/format";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -47,6 +47,7 @@ export default function InvoiceForm() {
         setGType(inv.global_discount_type || "none");
         setGValue(inv.global_discount_value || 0);
         setPaymentType(inv.payment_type || "full");
+        setTenor(inv.tenor || 3);
         setNotes(inv.notes || "");
       });
     }
@@ -80,13 +81,10 @@ export default function InvoiceForm() {
       student, invoice_date: invoiceDate, due_date: dueDate,
       items: items.filter((it) => it.description).map((it) => ({ ...it, qty: Number(it.qty), unit_price: Number(it.unit_price), discount_value: Number(it.discount_value) })),
       global_discount_type: gType, global_discount_value: Number(gValue) || 0,
-      payment_type: paymentType, notes,
+      payment_type: paymentType, tenor: Number(tenor), notes,
     };
     try {
       const inv = editing ? await updateInvoice(id, payload) : await createInvoice(payload);
-      if (paymentType === "installment") {
-        await createSchedule({ invoice_id: inv.id, tenor: Number(tenor), start_date: invoiceDate, day_of_month: 10 });
-      }
       toast.success(editing ? "Invoice diperbarui" : `Invoice dibuat • ${inv.invoice_number}`);
       nav(`/invoices/${inv.id}/print`);
     } catch (e) {
