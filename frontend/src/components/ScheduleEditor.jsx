@@ -26,7 +26,7 @@ const buildRows = (total, tenor, startDate) => {
       termin: i + 1,
       due_date: genDue(startDate, i),
       amount,
-      category: i === 0 ? "Biaya Pengembangan" : "SPP Bulanan",
+      category: i === 0 ? "Biaya Pengembangan" : "Class Fee",
       note: "",
       status: "pending",
       paid_amount: 0,
@@ -109,7 +109,7 @@ export const ScheduleEditor = ({ open, onOpenChange, invoices, invoice, schedule
                 <Label>Jumlah Termin</Label>
                 <Select value={String(tenor)} onValueChange={(v) => setTenor(Number(v))}>
                   <SelectTrigger data-testid="schedule-tenor-select"><SelectValue /></SelectTrigger>
-                  <SelectContent>{[2, 3, 4, 5, 6, 8, 10, 12].map((t) => <SelectItem key={t} value={String(t)}>{t}x cicilan</SelectItem>)}</SelectContent>
+                  <SelectContent>{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((t) => <SelectItem key={t} value={String(t)}>{t}x cicilan</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             </div>
@@ -126,7 +126,7 @@ export const ScheduleEditor = ({ open, onOpenChange, invoices, invoice, schedule
               <div key={idx} className="border border-slate-200 rounded-xl p-3" data-testid={`schedule-row-${idx}`}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-bold text-slate-700">Termin {idx + 1}</span>
-                  {r.status === "paid" && <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">LUNAS</span>}
+                  {r.status === "paid" && <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">PAID</span>}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <div>

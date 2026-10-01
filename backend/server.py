@@ -138,7 +138,7 @@ class Installment(BaseModel):
     termin: int
     due_date: str
     amount: float
-    category: str = "SPP Bulanan"
+    category: str = "Class Fee"
     note: str = ""
     status: str = "pending"
     paid_amount: float = 0
@@ -388,7 +388,7 @@ def build_installments(total: float, tenor: int, start_date: str, day_of_month: 
             "termin": i + 1,
             "due_date": due.date().isoformat(),
             "amount": float(amt),
-            "category": "SPP Bulanan",
+            "category": "Class Fee",
             "note": "",
             "status": "pending",
             "paid_amount": 0,
@@ -640,7 +640,7 @@ async def _seed_samples():
     for idx, (nama, nis, kelas, ortu, prog, dev, spp, bulan) in enumerate(samples):
         items = [
             {"description": "Biaya Pengembangan / Uang Gedung", "program": prog, "qty": 1, "unit_price": dev, "discount_type": "none", "discount_value": 0},
-            {"description": f"SPP Bulanan ({bulan} bulan)", "program": prog, "qty": bulan, "unit_price": spp, "discount_type": "percent" if idx == 0 else "none", "discount_value": 10 if idx == 0 else 0},
+            {"description": f"Class Fee ({bulan} bulan)", "program": prog, "qty": bulan, "unit_price": spp, "discount_type": "percent" if idx == 0 else "none", "discount_value": 10 if idx == 0 else 0},
         ]
         inv = Invoice(
             student=Student(name=nama, nis=nis, kelas=kelas, parent_name=ortu, contact="+62 812-0000-000" + str(idx), email=""),

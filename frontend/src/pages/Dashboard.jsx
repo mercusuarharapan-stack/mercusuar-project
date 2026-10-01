@@ -73,7 +73,7 @@ export default function Dashboard() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-mono font-semibold text-slate-800">{rupiah(u.amount)}</p>
-                  {u.overdue && <p className="text-[10px] font-bold text-rose-600">TERLEWAT</p>}
+                  {u.overdue && <p className="text-[10px] font-bold text-rose-600">OVERDUE</p>}
                 </div>
               </Link>
             ))}

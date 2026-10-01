@@ -62,7 +62,7 @@ export default function InvoiceForm() {
     if (!p) return;
     setItems([
       { description: "Biaya Pengembangan / Uang Gedung", program: p.name, qty: 1, unit_price: p.biaya_pengembangan, discount_type: "none", discount_value: 0 },
-      { description: `SPP Bulanan (${p.periode_bulan} bulan)`, program: p.name, qty: p.periode_bulan, unit_price: p.spp_bulanan, discount_type: "none", discount_value: 0 },
+      { description: `Class Fee (${p.periode_bulan} bulan)`, program: p.name, qty: p.periode_bulan, unit_price: p.spp_bulanan, discount_type: "none", discount_value: 0 },
     ]);
     toast.success(`Biaya standar ${p.name} dimuat`);
   };
@@ -201,7 +201,7 @@ export default function InvoiceForm() {
                 <Label className="text-xs">Jumlah Termin</Label>
                 <Select value={String(tenor)} onValueChange={(v) => setTenor(Number(v))}>
                   <SelectTrigger data-testid="invoice-tenor-select"><SelectValue /></SelectTrigger>
-                  <SelectContent>{[2, 3, 4, 6, 10, 12].map((t) => <SelectItem key={t} value={String(t)}>{t}x cicilan • {rupiah(total / t)}</SelectItem>)}</SelectContent>
+                  <SelectContent>{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((t) => <SelectItem key={t} value={String(t)}>{t}x cicilan • {rupiah(total / t)}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
             )}

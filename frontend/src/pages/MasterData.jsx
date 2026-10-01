@@ -70,8 +70,8 @@ export default function MasterData() {
 
       <Card className="p-5 border-slate-200/80" data-testid="logo-settings-card">
         <div className="flex items-center gap-4 flex-wrap">
-          <div className="w-20 h-20 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0">
-            {logo ? <img src={logo} alt="Logo yayasan" className="w-full h-full object-contain" data-testid="logo-preview" /> : <LighthouseLogo className="w-12 h-12" />}
+          <div className="w-80 h-80 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0">
+            {logo ? <img src={logo} alt="Logo yayasan" className="w-full h-full object-contain" data-testid="logo-preview" /> : <LighthouseLogo className="w-24 h-24" />}
           </div>
           <div className="flex-1 min-w-[220px]">
             <p className="font-heading font-bold text-blue-900">{FOUNDATION.name}</p>
@@ -107,9 +107,9 @@ export default function MasterData() {
             <h3 className="font-heading font-extrabold text-lg text-slate-900 mt-3">{p.name}</h3>
             <p className="text-xs text-slate-500 mb-3 flex-1">{p.label}</p>
             <div className="space-y-1.5 text-sm border-t border-slate-100 pt-3">
-              <div className="flex justify-between"><span className="text-slate-500">Biaya Pengembangan</span><span className="font-mono font-semibold">{rupiah(p.biaya_pengembangan)}</span></div>
-              <div className="flex justify-between"><span className="text-slate-500">SPP Bulanan</span><span className="font-mono font-semibold">{rupiah(p.spp_bulanan)}</span></div>
-              <div className="flex justify-between"><span className="text-slate-500">Pendaftaran</span><span className="font-mono">{rupiah(p.biaya_pendaftaran)}</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Development Fee</span><span className="font-mono font-semibold">{rupiah(p.biaya_pengembangan)}</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Class Fee</span><span className="font-mono font-semibold">{rupiah(p.spp_bulanan)}</span></div>
+              <div className="flex justify-between"><span className="text-slate-500">Registration Fee</span><span className="font-mono">{rupiah(p.biaya_pendaftaran)}</span></div>
               <div className="flex justify-between"><span className="text-slate-500">Periode</span><span className="font-mono">{p.periode_bulan} bulan</span></div>
             </div>
           </Card>
@@ -123,9 +123,9 @@ export default function MasterData() {
             <div><Label>Nama Program *</Label><Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} data-testid="program-name-input" /></div>
             <div><Label>Deskripsi / Label</Label><Input value={form.label} onChange={(e) => setForm({ ...form, label: e.target.value })} data-testid="program-label-input" /></div>
             <div className="grid grid-cols-2 gap-3">
-              <div><Label>Biaya Pengembangan</Label><Input type="number" value={form.biaya_pengembangan} onChange={(e) => setForm({ ...form, biaya_pengembangan: e.target.value })} data-testid="program-dev-input" /></div>
-              <div><Label>SPP Bulanan</Label><Input type="number" value={form.spp_bulanan} onChange={(e) => setForm({ ...form, spp_bulanan: e.target.value })} data-testid="program-spp-input" /></div>
-              <div><Label>Biaya Pendaftaran</Label><Input type="number" value={form.biaya_pendaftaran} onChange={(e) => setForm({ ...form, biaya_pendaftaran: e.target.value })} data-testid="program-reg-input" /></div>
+              <div><Label>Development Fee</Label><Input type="number" value={form.biaya_pengembangan} onChange={(e) => setForm({ ...form, biaya_pengembangan: e.target.value })} data-testid="program-dev-input" /></div>
+              <div><Label>Class Fee</Label><Input type="number" value={form.spp_bulanan} onChange={(e) => setForm({ ...form, spp_bulanan: e.target.value })} data-testid="program-spp-input" /></div>
+              <div><Label>Regristration Fee</Label><Input type="number" value={form.biaya_pendaftaran} onChange={(e) => setForm({ ...form, biaya_pendaftaran: e.target.value })} data-testid="program-reg-input" /></div>
               <div><Label>Periode (bulan)</Label><Input type="number" value={form.periode_bulan} onChange={(e) => setForm({ ...form, periode_bulan: e.target.value })} data-testid="program-period-input" /></div>
             </div>
           </div>

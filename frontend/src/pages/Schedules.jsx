@@ -61,7 +61,7 @@ export default function Schedules() {
                 <div className="flex items-center gap-3">
                   <div className="text-right">
                     <p className="font-mono font-semibold text-slate-800">{rupiah(s.total)}</p>
-                    <p className="text-xs text-slate-500">{paidCount}/{s.tenor} termin lunas</p>
+                    <p className="text-xs text-slate-500">{paidCount}/{s.tenor} termin PAID</p>
                   </div>
                   <Button size="icon" variant="ghost" onClick={(e) => { e.stopPropagation(); openEdit(s); }} data-testid={`edit-schedule-${s.id}`}><Pencil className="w-4 h-4" /></Button>
                   <Button size="icon" variant="ghost" onClick={(e) => { e.stopPropagation(); nav(`/schedules/${s.id}/print`); }} data-testid={`print-schedule-${s.id}`}><Printer className="w-4 h-4" /></Button>

@@ -9,7 +9,7 @@
     "short_name": "Mercusuar Edu",
     "address": "Jl. Ciater Raya Blok A1 No.2, BSD, Kel. Ciater, Kec. Serpong, Tangerang Selatan 15310",
     "phone": "+62 21 538 9012",
-    "email": "administrasi@mercusuarharapan.sch.id",
+    "email": "mercusuarharapan@gmail.com",
     "website": "https://mercusuarharapan.sch.id",
     "entity_type": "Lembaga Pendidikan & Pengembangan Karakter",
     "programs": [
@@ -146,7 +146,7 @@
         "program_selection": "Pilihan Program (PIJAR, PURRFECT LEARNING, DAYCARE) yang auto-populate line items standar",
         "line_items_table": [
           "Biaya Pengembangan / Uang Gedung",
-          "SPP Bulanan (dengan multi-select bulan berjalan atau custom range bulan)",
+          "Class Fee (dengan multi-select bulan berjalan atau custom range bulan)",
           "Uang Kegiatan & Ekstrakurikuler",
           "Biaya Seragam & Materi Ajar",
           "Line item kustom bebas tambah baris"
@@ -154,14 +154,14 @@
         "discount_engine": "Mendukung opsi diskon Nominal (Rp) ATAU Persentase (%) per baris item dan diskon total faktur (misal: Diskon Saudara Kandung / Beasiswa Yayasan)",
         "auto_calculations": "Subtotal, Total Diskon, Pajak/Admin (opsional), Total Akhir (Net Payable)",
         "due_date_picker": "Tanggal Faktur & Tanggal Jatuh Tempo",
-        "payment_type": "Pilihan: Lunas Sekaligus ATAU Rencana Pembayaran Bertahap (Cicilan)"
+        "payment_type": "Pilihan: PAID Sekaligus ATAU Rencana Pembayaran Bertahap (Cicilan)"
       }
     },
     "module_payment_schedules": {
       "title": "Jadwal Pembayaran & Cicilan",
       "features": [
         "Generator Cicilan Otomatis: Bagi total tagihan menjadi 2x, 3x, 4x, 6x atau tenor kustom",
-        "Tabel Jadwal: Termin ke-N, Tanggal Jatuh Tempo, Jumlah Angsuran (Rp), Status (LUNAS, MENUNGGU, TERLEWAT)",
+        "Tabel Jadwal: Termin ke-N, Tanggal Jatuh Tempo, Jumlah Angsuran (Rp), Status (PAID, DUE, OVERDUE)",
         "Action: Catat Pembayaran langsung dari termin jatuh tempo tertentu",
         "Cetak Lembar Jadwal Komitmen Pembayaran (PDF/Print) untuk ditandatangani orang tua"
       ]
@@ -179,7 +179,7 @@
       "title": "Master Data Program & Tarif Pendidikan",
       "features": [
         "Kelola 3 Program Inti: PIJAR, PURRFECT LEARNING, DAYCARE",
-        "Pengaturan Komponen Biaya: Biaya Pengembangan, SPP Bulanan, Durasi Periode (Bulan), Biaya Pendaftaran",
+        "Pengaturan Komponen Biaya: Biaya Pengembangan, Class Fee, Durasi Periode (Bulan), Biaya Pendaftaran",
         "Daftar Rekening Bank Yayasan untuk instruksi transfer di Invoice/Kuitansi (BCA Yayasan, Mandiri, BSI)",
         "CRUD interaktif dengan modal dialog Shadcn & validasi instan"
       ]
@@ -187,9 +187,9 @@
     "printable_documents": {
       "standard_kop_surat": {
         "yayasan_name": "YAYASAN MERCUSUAR HARAPAN MULIA",
-        "badge_sub": "LEMBAGA PENDIDIKAN & PENGEMBANGAN POTENSI ANAK",
-        "address": "Jl. Ciater Raya Blok A1 No.2, BSD, Kel. Ciater, Kec. Serpong, Kota Tangerang Selatan, Banten 15310",
-        "contact": "Telp: (021) 538-9012 | WhatsApp: +62 812-8899-7711 | Email: administrasi@mercusuarharapan.sch.id",
+        "badge_sub": "Pijar Preschool & Purrfect Learning ",
+        "address": "Jl. Ciater Raya Blok A1 No.2, Kel. Ciater, Kec. Serpong, Kota Tangerang Selatan, Banten 15310",
+        "contact": "Whatsapp: +62 821 2120 3853 | Email: mercusuarharapan@gmail.com",
         "decor": "Double border horizontal separator (1px slate-300 + 3px primary navy line) khas kop resmi institusi Indonesia"
       },
       "documents": [
@@ -271,7 +271,7 @@
     "2. FORMAT MATA UANG INDONESIA: Tampilkan seluruh angka mata uang dalam format Rupiah baku Indonesia (cth: 'Rp 4.500.000'), auto format saat pengetikan.",
     "3. PERHITUNGAN OTOMATIS: Komponen pembuatan invoice harus otomatis mengkalkulasi Subtotal baris, Diskon (nominal Rp atau persentase %), dan Total Akhir. Jika memilih program PIJAR, PURRFECT, atau DAYCARE, berikan tombol 'Muat Biaya Standar Program' yang auto-isi Biaya Pengembangan & SPP dari Master Data.",
     "4. JADWAL CICILAN GENERATOR: Sediakan opsi saat pembuatan invoice: 'Bayar Penuh' atau 'Cicilan/Angsuran' (2x, 3x, 4x, 6x). Generator menghitung tanggal jatuh tempo berjarak 30 hari atau tanggal 10 tiap bulan secara otomatis dengan sisa pembulatan tepat.",
-    "5. TANDA TERIMA OTOMATIS: Setelah pembayaran dicatat (baik lunas maupun cicilan parsial), buatkan otomatis entitas Tanda Terima (Kuitansi) dengan teks terbilang Rupiah otomatis (fungsi spell-number terintegrasi) dan opsi Cetak.",
+    "5. TANDA TERIMA OTOMATIS: Setelah pembayaran dicatat (baik PAID maupun cicilan parsial), buatkan otomatis entitas Tanda Terima (Kuitansi) dengan teks terbilang Rupiah otomatis (fungsi spell-number terintegrasi) dan opsi Cetak.",
     "6. DOKUMEN CETAK PROFESIONAL: Sediakan tombol 'Cetak PDF / Print' di Invoice, Jadwal Cicilan, dan Kuitansi. Tampilan cetak harus bersih, berformat kop resmi Yayasan Mercusuar Harapan Mulia lengkap dengan alamat BSD Tangerang Selatan, stempel cap digital yayasan, dan kolom tanda tangan ganda.",
     "7. DATA AWAL (SEED DATA): Sertakan data mock realistis siswa Indonesia untuk ketiga program (PIJAR, PURRFECT LEARNING, DAYCARE) agar dashboard langsung tampak hidup dengan statistik, invoice terbit, cicilan aktif, dan kuitansi pembayaran.",
     "8. RESPONSIVE & CLEAN: Dashboard harus bekerja prima pada resolusi desktop maupun tablet staf tata usaha, dengan navigasi cepat dan konfirmasi toast informatif."

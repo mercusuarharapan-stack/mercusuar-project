@@ -49,7 +49,7 @@ export default function SchedulePrint() {
           </tbody>
         </table>
 
-        <p className="text-xs text-slate-500 italic">Dengan menandatangani lembar ini, orang tua/wali menyetujui jadwal pembayaran di atas dan berkomitmen melunasi setiap termin tepat waktu.</p>
+        <p className="text-xs text-slate-500 italic">Dengan menandatangani lembar ini, orang tua/wali menyetujui jadwal pembayaran di atas dan berkomitmen mePAIDi setiap termin tepat waktu.</p>
         <SignOff />
       </div>
     </div>
